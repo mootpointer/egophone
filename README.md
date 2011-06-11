@@ -1,4 +1,4 @@
-About EgoPhoney
+About EgoPhone
 ==============
 
 EgoPhone is a way of viewing information about the way you interact with
