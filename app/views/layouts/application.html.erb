@@ -3,7 +3,8 @@
 <head>
   <title>Egophone</title>
   <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag 'jquery-1.6.1.min.js','application.js' %>
+  <%= javascript_include_tag 'jquery-1.6.1.min.js','application.js', 'jquery.enumerable.js', 
+      'raphael.js',  'jquery.tufte-graph.js' %>
   <%= csrf_meta_tag %>
 </head>
 <body>
@@ -13,7 +14,7 @@
     </a>
     <menu>
       <form action="<%= search_path%>" method="get">
-        <input type="text" id="search" hint="Search"/>
+        <input type="text" id="search" name="search" hint="Search" value="<%= params[:search]%>"/>
         <input type="submit" value="Search"/>
       </form>
     </menu>

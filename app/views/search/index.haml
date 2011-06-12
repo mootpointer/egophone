@@ -1,0 +1,10 @@
+%section{:class => 'current'}
+  %section{:id => "search-results-graph"}
+
+  -@results.results.each do |message|
+    %section
+      =message['text']
+      Sent at:
+      =message['sent']
+      From
+      =message['phone']

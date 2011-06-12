@@ -7,3 +7,9 @@ $(document).ready(function(){
 	});
 	
 });
+
+function drawHistogram(data){
+	$('#search-results-graph').tufteBar({
+    data: data
+  });
+}

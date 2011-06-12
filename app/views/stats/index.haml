@@ -1,11 +1,23 @@
 %menu
-  =link_to 'Top 20 Recipients', '', :rel => 'most-sent', :class => 'current'
+  =link_to 'Daily Histogram', '', :rel => 'histogram', :class => 'current'
+  =link_to 'Top 20 Recipients', '', :rel => 'most-sent'
   =link_to 'Top 20 Senders', '', :rel => 'most-received'
   =link_to 'Top 20 Sent Words', '', :rel => 'most-sent-words'
 
-%section{:id => 'most-sent', :class => 'current'}
+%section{:id => 'histogram', :class => 'current'}
+  #search-results-graph{:style => 'height: 500px'}
+%section{:id => 'most-sent'}
   = render :partial => "top_20", :locals => {:stats => @most_sent_to, :value_header => "Recipient", :count_column => "out" }
 %section{:id => 'most-received'}
   = render :partial => "top_20", :locals => {:stats => @most_received_from, :value_header => "Sender", :count_column => "in" }
 %section{:id => 'most-sent-words'}
   = render :partial => "top_20", :locals => {:stats => @most_sent_words, :value_header => "Word", :count_column => 'out'}
+  
+%script{:type => "text/javascript"}
+  drawHistogram([
+  - @graph_data.each do |val|
+    [
+    =val
+    , {}],
+  ]
+  );
