@@ -156,10 +156,10 @@ class Person
     Person.words(:out => "#{name.camelize}_words", :query => {:_id => id})
   end
 
-  def time_of_day
+  def time_of_day(q="*:*")
     phones = phone_numbers
-    Message.search do 
-      query {string "*:*"}
+    result = Message.search do 
+      query {string q}
       size 0
       filter :terms, :phone => phones
       facet :time_of_day do 
@@ -171,6 +171,9 @@ class Person
                   }
       end
     end
+    counts = Hash.new(0)
+    results.facets["time_of_day"]["entries"].each {|x| counts.merge({x.key => x.count})}
+    counts
   end
 
 

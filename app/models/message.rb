@@ -23,9 +23,10 @@ class Message
   end
 
   class << self
-    def time_of_day
-      Message.search do 
-        query {string "*:*"}
+    def time_of_day(q="*:*")
+      results = Message.search do 
+       query {string q}
+
         size 0
         facet :time_of_day do 
 
@@ -35,8 +36,12 @@ class Message
           }
         end
       end
+    counts = Hash.new(0)
+    results.facets["time_of_day"]["entries"].each {|x| counts.merge!({x["key"] => x["count"]})}
+    counts
 
     end
+
   end
 
   def set_person
