@@ -60,7 +60,25 @@ class Message
 
       result.facets["words"]["terms"].collect {|term| [term["term"], term["count"]]}
     end
-
+    
+    def direction 
+        result = Message.search do
+        query {string "*:*"}
+        size  0
+        facet :out do
+          @value = {:terms => {
+            :field => 'phone',
+            :size => 20
+          }, :facet_filter => {:term => {:direction => :out}}}
+        end
+        facet :in do
+          @value = {:terms => {
+            :field => 'phone',
+            :size => 20
+          }, :facet_filter => {:term => {:direction => :in}}}
+        end
+      end 
+    end
 
   end
 
