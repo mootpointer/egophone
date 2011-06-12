@@ -42,7 +42,7 @@ class Message
 
     end
 
-    def words_sent
+    def words(dir=:out)
       result = Message.search do
         query {string "*:*"}
         size 0
@@ -52,7 +52,7 @@ class Message
             :size => 20,
             :script => "term.length() > 3 ? true : false"
           },
-          :facet_filter => {:term => {:direction => :out}}}
+          :facet_filter => {:term => {:direction => dir}}}
         end
       end
 

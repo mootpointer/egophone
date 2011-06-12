@@ -6,5 +6,5 @@
     - stats.each do |stat|
       %tr
         %td{:class => ['Recipient', 'Sender'].include?(value_header) ? 'person' : ''}
-          = stat['_id']
-        %td= stat['value'][count_column].to_i
+          = stat[1]
+        %td= stat[0]
