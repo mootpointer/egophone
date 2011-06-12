@@ -9,23 +9,6 @@ class Message
 
   embedded_in :person
 
-  def self.message_counts
-    map = '
-      function() {
-        emit(this.person_id, 1);
-      }'
-        
-    reduce = '
-      function(key, values) {
-        var sum = 0;
-        for(var i=0; i<values.length; i++) {
-          sum += values[i];
-        }
-        return sum;
-      }'
-    msg_counts = collection.map_reduce(map, reduce, :out => 'msg_counts')
-  end  
-
 
   def normalize
     country_map = {'au' => '+61', 'hk' => '+82', 'kz' => '+7'}
