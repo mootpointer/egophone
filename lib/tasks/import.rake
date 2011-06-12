@@ -3,7 +3,6 @@ namespace :egophone do
   
   task :reset => :environment do
     Person.destroy_all
-    Message.destroy_all
   end
 
   namespace :dbs do
