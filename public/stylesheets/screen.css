@@ -81,7 +81,7 @@ input[type="checkbox"] { vertical-align: middle }
 .ie6 input { vertical-align: text-bottom; }
 
 /* Hand cursor on clickable input elements */
-label, input[type="button"], input[type="submit"], input[type="image"], button { cursor: pointer; }
+label, input[type="button"], input[type="submit"], input[type="image"], button, .person { cursor: pointer; }
 
 /* Webkit browsers add a 2px margin outside the chrome of form elements */
 button, input, select, textarea { margin: 0; }
@@ -162,4 +162,9 @@ td {
 body > header > a, body > header > a:hover, body > header > a:visited {
 	color: #444;
 	background-color: #FFF;
+}
+
+#stats.current {
+	float: right;
+	position: relative;
 }

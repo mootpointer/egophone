@@ -3,6 +3,7 @@ Egophone::Application.routes.draw do
 
   match '/search' => "search#index", :as => :search
   resources :stats
+  resources :persons
   
   root :to => "stats#index"
   # The priority is based upon order of creation:

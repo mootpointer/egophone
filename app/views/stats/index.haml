@@ -12,12 +12,17 @@
   = render :partial => "top_20", :locals => {:stats => @most_received_from, :value_header => "Sender", :count_column => "in" }
 %section{:id => 'most-sent-words'}
   = render :partial => "top_20", :locals => {:stats => @most_sent_words, :value_header => "Word", :count_column => 'out'}
+
+%section{:id => 'stats'}
+  %section{:id => 'personal-histogram'}
+  %section{:id => 'personal-words-out'}
+  %section{:id => 'personal-words-in'}
   
 %script{:type => "text/javascript"}
   drawHistogram([
   - @graph_data.each do |val|
     [
     =val
-    , {}],
+    , {label: ''}],
   ]
   );
