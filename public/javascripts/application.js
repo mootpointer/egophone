@@ -15,11 +15,8 @@ $(document).ready(function(){
 						var history = new Array();
 						var div = $('#personal-histogram').children('div:first');
 						div.html('');
-						var hour = 0;
-						$.each(json.time_of_day, function(count){
-							div.append('<p>' + hour + " : " + count + '</p>');
-							hour += 1;
-							history.push([count, {}]);
+						$.each(json.time_of_day, function(hour){
+							div.append('<p>' + hour + " : " + json.time_of_day[hour] + '</p>');
 						});
 						
 						// div.tufteBar({
