@@ -33,7 +33,7 @@ class Person
         return sum;
       }'
 
-      collection.mapreduce(map, reduce, :out => 'top')
+      collection.mapreduce(map, reduce, :out => 'top').find()
     end
 
     def avg_chars
@@ -60,7 +60,7 @@ class Person
         return values;
       }'
 
-      collection.mapreduce(map, reduce, :finalize => finalize, :out => 'avg_chars')
+      collection.mapreduce(map, reduce, :finalize => finalize, :out => 'avg_chars').find()
     end
 
     def avg_word_length
@@ -86,7 +86,7 @@ class Person
         values.avg = values.chars / values.words
         return values;
       }'
-      collection.mapreduce(map, reduce, :finalize => finalize, :out => 'avg_word_length')      
+      collection.mapreduce(map, reduce, :finalize => finalize, :out => 'avg_word_length').find()      
     end
 
     def direction
@@ -114,7 +114,7 @@ class Person
         return values;
       }
       '
-      collection.mapreduce(map, reduce, :finalize => finalize, :out => 'direction')            
+      collection.mapreduce(map, reduce, :finalize => finalize, :out => 'direction').find()            
 
     end
 
@@ -145,7 +145,7 @@ class Person
         return ret;
       }'
     
-      collection.mapreduce(map, reduce, opts)            
+      collection.mapreduce(map, reduce, opts).find()            
 
     end
   end
