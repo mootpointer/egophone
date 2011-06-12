@@ -13,6 +13,7 @@ class Person
   def messages_to
     messages.where(:direction => :out)
   end
+
   
   class << self
     def top
@@ -148,10 +149,28 @@ class Person
       collection.mapreduce(map, reduce, opts).find()            
 
     end
+
   end
 
   def mr_words
     Person.words(:out => "#{name.camelize}_words", :query => {:_id => id})
+  end
+
+  def time_of_day
+    phones = phone_numbers
+    Message.search do 
+      query {string "*:*"}
+      size 0
+      filter :terms, :phone => phones
+      facet :time_of_day do 
+        
+        @value = {:histogram => {
+                                  :key_script => "doc['sent'].date.hourOfDay",
+                                  :value_script => 1},
+                  :facet_filter => {:term => {:phone => phones}}
+                  }
+      end
+    end
   end
 
 
