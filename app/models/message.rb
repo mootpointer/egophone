@@ -42,6 +42,24 @@ class Message
 
     end
 
+    def words_sent
+      result = Message.search do
+        query {string "*:*"}
+        size 0
+        facet :words do
+          @value = {:terms => {
+            :field => 'text',
+            :size => 20,
+            :script => "term.length() > 3 ? true : false"
+          },
+          :facet_filter => {:term => {:direction => :out}}}
+        end
+      end
+
+      result.facets["words"]["terms"].collect {|term| [term["term"], term["count"]]}
+    end
+
+
   end
 
   def set_person
