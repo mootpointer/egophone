@@ -40,7 +40,7 @@ namespace :egophone do
                          :sent => Time.at(row[1]).to_datetime, 
                          :direction => direction[row[4]], 
                          :country => row[3],
-                         :message => row[2])
+                         :text => row[2])
           m.normalize
           person = Person.where(phone_numbers: m.phone).first || Person.create(:phone_numbers => [row[0]], :name => m.phone)
           person.messages << m
