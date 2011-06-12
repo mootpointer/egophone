@@ -1,7 +1,7 @@
 class Person
   include Mongoid::Document
-  field :phone_numbers, type: Array, default: []
-  field :name, type: String
+  field :phone_numbers, :type => Array, :default => []
+  field :name, :type => String
 
   before_save :normalize
   embeds_many :messages

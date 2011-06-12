@@ -1,2 +1,9 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
+$(document).ready(function(){
+	$('a').click(function(){
+		$('.current').removeClass('current');
+		$('#' + $(this).attr('rel')).addClass('current');
+		$(this).addClass('current');
+		return false;
+	});
+	
+});

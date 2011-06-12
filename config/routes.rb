@@ -1,6 +1,8 @@
 Egophone::Application.routes.draw do
   resources :messages
 
+  match '/search' => "search#index", :as => :search
+  resources :stats
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

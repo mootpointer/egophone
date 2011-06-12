@@ -8,8 +8,8 @@ namespace :egophone do
   namespace :dbs do
     desc 'Import all data from given DB path'
     task :import, [:db_path] => :environment do |t, args|
-      Rake::Task["rake:egophone:people:import"].invoke("#{args.db_path}/AddressBook/AddressBook.sqlitedb")
-      Rake::Task["rake:egophone:messages:import"].invoke("#{args.db_path}/SMS/sms.db")
+      Rake::Task["rake:egophone:people:import"].invoke("/Users/chelsea/PhoneDump/AddressBook/AddressBook.sqlitedb")
+      Rake::Task["rake:egophone:messages:import"].invoke("/Users/chelsea/PhoneDump/SMS/sms.db")
     end
   end
 
@@ -17,7 +17,7 @@ namespace :egophone do
   namespace :people do
     desc 'Import all people from the given db'
     task :import, [:db_path] => :environment do |t, args|
-      puts "Importing People..."
+      puts "Importing People... from #{args.db_path}"
       db = SQLite3::Database.new(args.db_path)
       db.execute("SELECT First,Last,value FROM ABPerson INNER JOIN ABMultiValue ON record_id = ROWID WHERE property = 3") do |row|
         person = Person.find_or_initialize_by(name:"#{row[0]} #{row[1]}")

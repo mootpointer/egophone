@@ -4,12 +4,12 @@ class Message
   include Tire::Model::Search
   include Tire::Model::Callbacks
 
-
   before_save :normalize
-  field :phone, type: String
-  field :direction, type: Symbol
-  field :text, type: String
-  field :sent, type: DateTime
+  field :phone, :type =>  String
+  field :direction, :type =>  Symbol
+  field :text, :type =>  String
+  field :sent, :type =>  DateTime
+
 
   embedded_in :person
 

@@ -1,0 +1,9 @@
+%section
+  %table
+    %tr
+      %th=value_header
+      %th Count
+    - stats.each do |stat|
+      %tr
+        %td= stat['_id']
+        %td= stat['value'][count_column]

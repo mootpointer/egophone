@@ -1,5 +1,12 @@
 class StatsController < ApplicationController
+
   def index
-    @top10 = 
+    # This code is insanely slow.  
+    direction = Person.direction.to_a
+    @most_sent_to = direction.sort{|a,b| b['value']['out'] <=> a['value']['out']}.take(20)
+    @most_received_from = direction.sort{|a,b| b['value']['in'] <=> a['value']['in']}.take(20)
+    
+    @most_sent_words = Person.words.to_a.sort{|a, b| 
+      b['value']['out'] <=> a['value']['out']}.select{|w| w['_id'].length > 3}.take(20)
   end
 end
