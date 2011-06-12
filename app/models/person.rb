@@ -118,7 +118,7 @@ class Person
 
     end
 
-    def words 
+    def words(opts = {:out => 'words'}) 
       map = '
       function() {
         if (this.messages) for(i in this.messages) {
@@ -129,7 +129,7 @@ class Person
             var words = msg.text.split(" ")
             for (var w in words) {
             var word = words[w];
-            stripped = word.replace("\\n", " ").replace(/\W/g, "").toLowerCase();
+            stripped = word.replace("\\n", " ").replace(/[^\w\']/g, "").toLowerCase();
             emit(stripped, em);
             }
           }
@@ -144,10 +144,14 @@ class Person
         }
         return ret;
       }'
-
-      collection.mapreduce(map, reduce, :out => 'words')            
+    
+      collection.mapreduce(map, reduce, opts)            
 
     end
+  end
+
+  def mr_words
+    Person.words(:out => "#{name.camelize}_words", :query => {:_id => id})
   end
 
 
