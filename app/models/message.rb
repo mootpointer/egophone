@@ -1,7 +1,11 @@
 class Message
   include Mongoid::Document
-  before_save :normalize
+    
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
 
+
+  before_save :normalize
   field :phone, type: String
   field :direction, type: Symbol
   field :text, type: String

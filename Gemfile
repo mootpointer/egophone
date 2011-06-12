@@ -11,6 +11,7 @@ gem 'rspec'
 gem 'rspec-rails'
 gem 'bson_ext'
 gem 'haml'
+gem 'tire'
 
 # Use unicorn as the web server
 # gem 'unicorn'
