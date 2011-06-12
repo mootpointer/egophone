@@ -37,6 +37,8 @@ class Message
         end
       end
     counts = Hash.new(0)
+    (0..23).each {|x| counts[x] = 0}
+    
     results.facets["time_of_day"]["entries"].each {|x| counts.merge!({(x["key"] + 10) % 24 => x["count"]})}
     counts
 

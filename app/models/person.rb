@@ -204,6 +204,7 @@ class Person
       end
     end
     counts = Hash.new(0)
+    (0..23).each {|x| counts[x] = 0}
     w_in = result.facets["words_in"]["terms"].collect {|term| [term["term"], term["count"]]}
     w_out = result.facets["words_out"]["terms"].collect {|term| [term["term"], term["count"]]}
     result.facets["time_of_day"]["entries"].each {|x| counts.merge!({(x["key"] + 10) % 24 => x["count"]})}
