@@ -129,12 +129,37 @@ body > section {
 	width: 600px;
 	min-height: 500px;
   opacity: 0;
-  color: #513537;
+  color: #444;
   -webkit-transition: all 0.25s ease-out;
   -webkit-transform: translate3d(-50px,0,0);
 }
-body > section.current { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 999 }
-a.current {
+body > section.current { 
+	-webkit-transform: translate3d(0,0,0); 
+	opacity: 1; 
+	z-index: 999;
+	left: 20px; 
+}
+menu > a, menu > a:hover, menu > a:visited {
+	color: #FFF;
+	background: #444;
+	border-radius: 6px;
+	text-decoration: none;
+	padding: 5px;
+}
+menu > a.current {
 	color: #FF5E99;
 }
 
+th {
+	text-align: left;
+	border-bottom: thin 1px #444;
+}
+
+td {
+	padding-right: 5px;
+}
+
+body > header > a, body > header > a:hover, body > header > a:visited {
+	color: #444;
+	background-color: #FFF;
+}

@@ -6,4 +6,4 @@
     - stats.each do |stat|
       %tr
         %td= stat['_id']
-        %td= stat['value'][count_column]
+        %td= stat['value'][count_column].to_i
