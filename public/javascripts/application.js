@@ -7,17 +7,23 @@ $(document).ready(function(){
 	});
 	
 	$('.person').click(function(){
-		// $.ajax({
-		// 		url: '/persons/' + $(this).html().trim(), 
-		// 		dataType: 'json',
-		// 		success: function(json){	
-		// 			$('#stats').addClass('current');
-		// 			$('#personal-histogram').html('');
-		// 			$.each(json.time_of_day, function(count){
-		// 				$('#personal-histogram').append(count);
-		// 			});
-		// 		}
-		// 	});
+		$.ajax({
+					url: '/persons/' + $(this).html().trim(), 
+					dataType: 'json',
+					success: function(json){	
+						$('#stats').addClass('current');
+						var history = new Array();
+						var div = $('#personal-histogram').children('div:first');
+						div.html('');
+						$.each(json.time_of_day, function(hour){
+							div.append('<p>' + hour + " : " + json.time_of_day[hour] + '</p>');
+						});
+						
+						// div.tufteBar({
+						// 	data: history
+						// });
+					}
+				});
 	})
 });
 
