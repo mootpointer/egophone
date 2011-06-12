@@ -206,7 +206,9 @@ class Person
     counts = Hash.new(0)
     w_in = result.facets["words_in"]["terms"].collect {|term| [term["term"], term["count"]]}
     w_out = result.facets["words_out"]["terms"].collect {|term| [term["term"], term["count"]]}
-    result.facets["time_of_day"]["entries"].each {|x| counts.merge!({x["key"] => x["count"]})}
+    result.facets["time_of_day"]["entries"].each {|x| counts.merge!({(x["key"] + 10) % 24 => x["count"]})}
+    
+
 
     {:time_of_day => counts, :words_received => w_in, :words_sent => w_out}
 
