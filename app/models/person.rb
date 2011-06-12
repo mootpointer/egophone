@@ -152,8 +152,64 @@ class Person
 
   end
 
-  def mr_words
-    Person.words(:out => "#{name.camelize}_words", :query => {:_id => id})
+  def words
+    phones = phone_numbers
+    result = Message.search do
+      query {string "*:*"}
+      size  0
+      filter :terms, :phone => phones
+      facet :words do
+        @value = {:terms => {
+          :field => 'text',
+          :size => 20
+        }}
+      end
+    end
+    
+    result.facets["words"]["terms"].collect {|term| [term["term"], term["count"]]}
+  end
+
+  def stats(q="*:*")
+    phones = phone_numbers
+    result = Message.search do 
+      query {string q}
+      size 0
+      filter :terms, :phone => phones
+      facet :time_of_day do 
+
+        @value = {:histogram => {
+          :key_script => "doc['sent'].date.hourOfDay",
+          :value_script => 1},
+          :facet_filter => {:term => {:phone => phones}}
+        }
+      end
+      facet :words_out do
+        @value = {:terms => {
+          :field => 'text',
+          :size => 20,
+        }, 
+          :facet_filter => {:and => [{:term => {:phone => phones}}, {:term => {:direction => :out}}]}
+        
+        }
+      end
+      facet :words_in do
+        @value = {:terms => {
+          :field => 'text',
+          :size => 20,
+
+        }, 
+          :facet_filter => {:and => [{:term => {:phone => phones}}, {:term => {:direction => :in}}]}
+        
+        }
+      end
+    end
+    counts = Hash.new(0)
+    w_in = result.facets["words_in"]["terms"].collect {|term| [term["term"], term["count"]]}
+    w_out = result.facets["words_out"]["terms"].collect {|term| [term["term"], term["count"]]}
+    result.facets["time_of_day"]["entries"].each {|x| counts.merge!({x["key"] => x["count"]})}
+
+    {:time_of_day => counts, :words_received => w_in, :words_sent => w_out}
+
   end
 
   def time_of_day(q="*:*")
